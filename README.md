@@ -1,0 +1,2 @@
+# infinity
+Site for infinites

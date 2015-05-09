@@ -1,0 +1,154 @@
+<div class="col-md-3">
+<h4><?php echo $this->__('Chat') ?></h4>
+<div id="chat">
+<div class="chat" >
+<?php 
+	$curuser = Mage::getSingleton('user/session')->getLoggedUser();
+	$collection = Mage::getModel('chat/chat')->getCollection();
+	$collection->setOrder('created_time','DESC');
+    $collection->setPageSize(10);
+    $collection->setCurPage(1);
+    foreach ($collection as $item) {
+        $i = 0;
+		$item->getChatId($i);
+        $item->getUserChatid($i);
+		$item->getContent($i);
+		$item->getCreatedTime($i);
+		$item->getStatus($i);
+	$userinchat = Mage::getModel('user/user')->load($item->getUserChatid($i));	
+	$userinchat->getName($i);
+	$userinchat->getUserImage($i);
+?>	
+	<div class="chatwin">
+	 <div class="info">
+		 <img src="/skin/frontend/infinity/legenda/images/uploads/avatar_default.png" style="width:40px;float:left;">
+		  <span style="color:red; padding-left:5px;"><?php echo $userinchat->getName($i); ?> </span>
+		  <?php if($item->getUserChatid($i) ==  $curuser){ ?>
+		  <form id="delForm" name="delform" action="<?php echo $this->getBaseURL() ?>chat/index/delete" method="post">
+		  <input id="delmessage" type="text" size="3" name="delmessage" style="display:none;" value="<?php echo $item->getChatId($i) ?>" />		  
+		  </form>
+		  <i style="float:right;color:#fff;padding-top:5px;cursor:pointer;" id="delete_msg" class="fa fa-times fa-lg"></i>
+		  <?php } ?>
+		  </br>
+		  <span style=" padding-left:5px;"><?php echo $item->getCreatedTime($i); ?> </span>
+	  </div>
+	  <div class="msg">
+	     <span><?php echo $item->getContent($i); ?> </span>
+	  </div>
+	</div>
+	
+	
+ <?php   } ?>
+
+</div>
+</div>
+<div id="form_msgc" style="display:none;" ></div>
+<div class="chatinput">
+<form id="chatForm" name="form" action="<?php echo $this->getBaseURL() ?>chat/index/chat" method="post"> 
+
+			 <input id="message" type="text" size="27" name="message" placeholder="Message"/></br>
+			 <button type="submit" id="sendmsg"><span><?php echo $this->__('Send') ?></span></button>
+			 <a id="toarchive" class="fa fa-list nodecor fa-lg" href="<?php echo $this->getBaseURL() ?>chat"><span> Archive</span></a>
+</form>
+</div>
+</div>
+<script>
+  jQuery("#sendmsg").click(function(){
+ jQuery.post( jQuery("#chatForm").attr("action"),
+  jQuery("#chatForm :input").serializeArray(),
+  function(data) {
+  jQuery("#form_msgc").empty();
+  jQuery("#form_msgc").html(data);
+  
+  });
+  jQuery("#chatForm").submit(function(){
+   return false;
+  });
+      location.reload();
+ });
+ 
+  jQuery("#delete_msg").click(function(){
+ jQuery.post( jQuery("#delForm").attr("action"),
+  jQuery("#delForm :input").serializeArray(),
+  function(data) {
+  jQuery("#form_msgc").empty();
+  jQuery("#form_msgc").html(data);
+  
+  });
+  jQuery("#delForm").submit(function(){
+   return false;
+  });
+   location.reload();
+ });
+
+
+ </script>	
+
+
+
+<div class="col-md-9">
+<h4><?php echo Mage::getSingleton('user/session')->getLoggedUser(); ?></h4>
+</div>
+ 
+ <?php 
+
+  /*$name = $_POST['name'];
+  $email = $_POST['email'];
+  $password = $_POST['password'];
+  $object = Mage::getModel('user/user');
+ $object
+		->setName($name)
+		->setEmail($email)
+		->setPassword($password);
+    
+    //$object->save();
+*/
+ ?>
+ 
+<?php   
+        /*
+        This will load one record from your database table.
+        load(<module>_id) will load whatever ID number you give it.
+        */
+    /*
+    $news = Mage::getModel('<module>/<module>')->load(1);
+    echo $news->get<Module>Id();
+    echo $news->getTitle();
+    echo $news->getContent();
+    echo $news->getStatus();
+    */
+ 
+        /*
+        This block of code loads all of the records in the database table.
+        It will iterate through the collection and the first thing it will do
+        is set the Title to the current value of $i which is incremented each
+        iteration and then echo that value back out.  At the very end it will
+        save the entire collection.
+        */
+    /*
+    $i = 0;
+         
+    $collection = Mage::getModel('<module>/<module>')->getCollection();
+    $collection->setPageSize(5);
+    $collection->setCurPage(2);
+    $size = $collection->getSize();
+    $cnt = count($collection);
+    foreach ($collection as $item) {
+        $i = $i+1;
+        $item->setTitle($i);
+        echo $item->getTitle();
+    }
+ 
+    $collection->walk('save');   
+    */
+ 
+        /*
+        This shows how to load one value, change something and save it.
+        */
+ 
+    /*
+    $object = Mage::getModel('<module>/<module>')->load(1);
+    $object->setTitle('This is a changed title');
+    $object->save();
+    */
+?>

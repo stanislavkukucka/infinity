@@ -1,0 +1,6 @@
+<?php Mage::getSingleton('user/session')->setBeforeAuthUrl($this->getRequest()->getRequestUri());  //save requested URL for later redirection
+if(!Mage::getSingleton('user/session')->isLoggedIn()) {  // if not logged in
+    header("Status: 301");
+    header('Location: '.Mage::helper('core/url')->getHomeUrl()) ;  // send to the login page
+    exit; 
+} ?>

@@ -1,0 +1,193 @@
+<?php
+
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+?>
+<?php if ( Mage::getSingleton('user/session')->isLoggedIn()){?>
+<?php  $userindex = Mage::getSingleton('user/session')->getLoggedUser(); 
+$user = Mage::getModel('user/user')->load($userindex);
+ ?>
+<div class="header-container">
+    <div class="header">
+		<!--<div class="col-md-12 logo-header">
+			<?php if ($this->getIsHomePage()):?>
+			<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><img  src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a>
+			<?php else:?>
+			<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a>
+			<?php endif?>
+		</div> -->
+		<div class="col-md-12" style="height:20px;"></div>
+		<div class="col-md-3 col-sm-5">
+		    <div style="width:80px;height:80px;background-color:green;margin:0;margin-bottom:10px;margin-right:10px;float: left;"></div> 
+			<div class="user-nav">
+				<p>Welcome <?php echo $user->getName(); ?>!</p></br>
+				<div class="hi-icon-wrap hi-icon-effect-6">
+					<a href="<?php echo Mage::helper('user')->getLogoutUrl(); ?>" class="hi-icon hi-icon-contract"><span>Logout</span></a></br>
+					<a href="<?php echo Mage::helper('user')->getProfileUrl(); ?>" class="hi-icon hi-icon-cog"><span>Profile</span></a>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-9">
+			<div class="main-nav">
+			    <ul class="nav-header">
+				 <li><a href="<?php echo $this->getBaseURL(); ?>">HOME</a><span> | </span></li>
+				 <li><a href="#">FORUMS</a><span> | </span></li>
+				 <li><a href="#">TEST</a><span> | </span></li>
+				 <li><a href="#">TEST</a></li>
+				</ul> 
+			</div>	
+		</div> 
+   
+	
+	
+	
+    </div>
+</div>	
+<div style="background-color:#e3e3e3;height:5px; width:100%;" ></div>				
+	<?php } else { ?>  <!------------    -->
+<div class="header" style="text-align:center;">
+		<div class="col-md-12 nontitle">
+		 <a class="nodecor" href="<?php echo $this->getBaseURL() ?>">Infinity Community Page</a>
+		</div>
+	<div class="col-md-12 navnon">	
+		<div class="hi-icon-wrap hi-icon-effect-8 nodemain">
+					<a id="register" class="hi-icon hi-icon-contract nodecor" style="text-shadow: 1px 1px 1px rgba(255,255,255,0.4);">
+					<span style="text-shadow:none;">REGISTER</span></a>
+					<a id="login" class="hi-icon hi-icon-user nodecor" style="text-shadow: 1px 1px 1px rgba(255,255,255,0.4);">
+					<span style="text-shadow:none;">LOGIN</span></a>	
+		</div>			
+   </div>
+	
+	<div id="reg-window" style="display:none;">
+	<div  style="background:#000;position:fixed;  top:0; left:0;  width:100%;  height:100%; z-index:98; opacity:0.5;"></div>	
+        <div style="height:400px; width:300px; position:fixed; background-color:#fff; z-index:99; left:50%;top:20%;margin-left: -150px; padding:5px;">	
+	<div style="height:390px; width:290px; background-color:#fff; border:1px solid #b2b2b2; padding:25px; text-align:left;">
+		<span class="exit-form fa fa-times" style="cursor:pointer;font-size:18px;top: 8px; position: absolute; right: 10px;"></span>
+		<p class="formtitle">ACCOUNT INFORMATION</p>
+		<div id="form_msg"></div>    
+		 <form id="regForm" name="form" action="<?php echo $this->getBaseURL() ?>user/index/register" method="post">
+			 <span><?php echo $this->__('Name') ?></span><span style="color:red">*</span></br>
+			 <input id="name" type="text" name="name" size="27" placeholder="Name"/></br>
+			 <span><?php echo $this->__('Email') ?></span><span style="color:red">*</span></br>
+			 <input id="email" type="text" size="27" name="email" placeholder="Email"/></br>
+			 <span><?php echo $this->__('Password') ?></span><span style="color:red">*</span></br>
+			 <input id="password" type="text" size="27" name="password" placeholder="Password"/></br>
+			 <span><?php echo $this->__('Confirm Password') ?></span><span style="color:red">*</span></br>
+			 <input id="passwordre" type="text" size="27" name="passwordre" placeholder="Confirm Password"/></br></br>
+			 <button type="submit" id="submitreg"><span><span><?php echo $this->__('Submit Registration') ?></span></span></button></br>
+		 </form></br>
+			
+			<span id="gologin"><span class="fa fa-arrow-circle-left goto" >&nbsp;</span>Go To Login</span>
+	    </div> 
+	    </div>  
+	    </div> 
+	    
+	    
+	 <div id="reg-windowl" style="display:none;">
+	<div  style="background:#000;position:fixed;  top:0; left:0;  width:100%;  height:100%; z-index:98; opacity:0.5;"></div>	
+        <div style="height:320px; width:300px; position:fixed; background-color:#fff; z-index:99; left:50%;top:20%;margin-left: -150px; padding:5px;">	
+	<div style="height:310px; width:290px; background-color:#fff; border:1px solid #b2b2b2; padding:25px; text-align:left;">
+		<span class="exit-forml fa fa-times" style="cursor:pointer;font-size:18px;top: 8px; position: absolute; right: 10px;"></span>
+		<p class="formtitle">LOGIN INFORMATION</p>  
+		<div id="form_msgl"></div>
+		 <form id="regForml" name="form" action="<?php echo $this->getBaseURL() ?>user/index/login" method="post">
+			 <span><?php echo $this->__('Name') ?></span><span style="color:red">*</span></br>
+			 <input id="namel" type="text" name="namel" size="27" placeholder="Name"/></br>
+			 <span><?php echo $this->__('Password') ?></span><span style="color:red">*</span></br>
+			 <input id="passwordl" type="text" size="27" name="passwordl" placeholder="Password"/></br></br>
+			 <button type="submit" id="submitregl"><span><span><?php echo $this->__('Login') ?></span></span></button></br>
+		 </form></br>
+			
+			<span id="goregister"><span class="fa fa-arrow-circle-left goto" >&nbsp;</span>Go To Registration</span>
+	    </div> 
+	    </div>  
+	    </div>    
+ 
+
+ <script type="text/javascript">
+ jQuery("#goregister").click(function(){
+   jQuery("#reg-windowl").fadeOut(500); 
+   jQuery("#reg-window").fadeIn(500); 
+ });
+ jQuery("#gologin").click(function(){
+   jQuery("#reg-window").fadeOut(500); 
+   jQuery("#reg-windowl").fadeIn(500); 
+ });
+ 
+ 
+ 
+ jQuery("#register").click(function(){
+   jQuery("#reg-window").fadeIn(500); 
+ });
+ jQuery(".exit-form").click(function(){
+   jQuery("#reg-window").fadeOut(500); 
+ });
+ 
+  jQuery("#login").click(function(){
+   jQuery("#reg-windowl").fadeIn(500); 
+ });
+ jQuery(".exit-forml").click(function(){
+   jQuery("#reg-windowl").fadeOut(500); 
+ });
+ 
+ 
+  jQuery("#submitreg").click(function(){
+   alert ("click");
+ jQuery.post( jQuery("#regForm").attr("action"),
+  jQuery("#regForm :input").serializeArray(),
+  function(info) {
+  jQuery("#form_msg").empty();
+  jQuery("#form_msg").html(info);
+  
+  });
+  jQuery("#regForm").submit(function(){
+   return false;
+  });
+ });
+ 
+ 
+  jQuery("#submitregl").click(function(){
+   alert ("clickl");
+ jQuery.post( jQuery("#regForml").attr("action"),
+  jQuery("#regForml :input").serializeArray(),
+  function(data) {
+  jQuery("#form_msgl").empty();
+  jQuery("#form_msgl").html(data);
+  
+  });
+  jQuery("#regForml").submit(function(){
+   return false;
+  });
+ });
+
+ </script>		
+				
+</div>
+<div style="background-color:#e3e3e3;height:5px; width:100%; margin-top:30px;" ></div>	
+<?php } ?>
+

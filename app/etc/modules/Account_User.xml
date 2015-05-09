@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Account_User>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Account_User>
+    </modules>
+</config>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Qchat_Chat>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Qchat_Chat>
+    </modules>
+</config>
